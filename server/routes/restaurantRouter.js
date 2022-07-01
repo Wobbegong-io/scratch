@@ -4,7 +4,7 @@ const restaurantController = require('../controllers/restaurantController.js');
 
 //middleware for fetching a restaurant based on the selected parameters
 restaurantRouter.get(
-  '/',
+  '/yelp',
   restaurantController.getRandomRestaurant,
   (req, res) => {
     return res.status(200).json(res.locals.randomRest);

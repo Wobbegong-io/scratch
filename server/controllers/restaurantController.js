@@ -23,7 +23,7 @@ restaurantController.getRandomRestaurant = (req, res, next) => {
   axios
     .request('https://api.yelp.com/v3/businesses/search', config)
     .then((response) => {
-      res.locals.randomRest = response.data.businesses[randomRestNum];
+      res.locals.randomRest = response.data.businesses;
     })
     .then(() => {
       return next();
