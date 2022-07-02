@@ -1,5 +1,6 @@
 //this component will be the parent component for passing state
 import React from 'react';
+import { useState } from 'react';
 import Banner from './Banner';
 import NavBar1 from './NavBar1';
 import NavBar2 from './NavBar2';
@@ -8,7 +9,8 @@ import Home from './Home';
 
 export default function Landing() {
 //logic to determine whether user is signed in or not
-  let signedIn = true; 
+ 
+  const [signedIn, setSignedIn] = useState(true);
   
   if (!signedIn) {
     return (
@@ -23,7 +25,7 @@ export default function Landing() {
     return (
       <div>
         <Banner />
-        <NavBar2 />
+        <NavBar2 signedIn={signedIn} setSignedIn={setSignedIn}/>
         <Home />
       </div>
     )

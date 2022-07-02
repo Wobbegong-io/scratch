@@ -1,8 +1,7 @@
 //this component is the container for our app (important for styling)
 import React from "react";
 import Landing from "./components/Landing";
-import './app.css'
-import SignUp from "./components/SignUp";
+import './style.css'
 
 export default function App (){
   return(
