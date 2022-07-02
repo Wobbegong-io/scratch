@@ -19,7 +19,7 @@ export default function Home() {
 
   const handleClick = (input) => {
     console.log('input', input.term, 'location', input.location);
-    axios.post('/yelp', {term: input.term, location: input.location})
+    axios.post('/api/yelp', {term: input.term, location: input.location})
     .then(response => {
       let index = Math.floor(Math.random() * (response.data.length));
       let pickedName = response.data[index].name;
