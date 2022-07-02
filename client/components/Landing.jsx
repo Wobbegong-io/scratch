@@ -16,7 +16,7 @@ export default function Landing() {
     return (
       <div>
          <Banner />
-         <NavBar1 />
+         <NavBar1 signedIn={signedIn} setSignedIn={setSignedIn}/>
          <Intro />
       </div>
     )

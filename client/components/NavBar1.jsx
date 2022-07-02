@@ -3,15 +3,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function NavBar1() {
+
+  //add clickHandlers to render either log in or sign up 
+  const LogIn = () => {
+
+  }
+
+
   return (
     <nav className='nav'>
       <Link to="/Landing" className='site-name'>Pick For Me</Link>
       <ul className='navbar'>
         <li>
-          <Link to="/LogIn"><p>Log In</p></Link>
+          <button onClick={logIn}><p>Log In</p></button>
         </li>
         <li>
-          <Link to="/SignUp"><p>Sign Up</p></Link>
+          <button onClick={signUp}><p>Sign Up</p></button>
         </li>
       </ul>
     </nav>

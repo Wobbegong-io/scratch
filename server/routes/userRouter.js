@@ -13,6 +13,9 @@ userRouter.post('/signup', userController.createUser, (req, res) => {
 userRouter.get('/allUsers', userController.getAllUsers);
 
 //route for login/landing page
+userRouter.post('/login', userController.login, (req,res)=>{
+  return res.sendStatus(200);
+})
 
 //route for the app page specific to the logged in user
 

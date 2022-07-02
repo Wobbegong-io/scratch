@@ -23,6 +23,15 @@ userController.createUser = (req, res, next) => {
 
 //middleware to bcrypt user data
 
+
+//middleware to login with an existing user account
+userController.login = (req, res, next) => {
+  const { username, password} = req.body;
+  //check if username and password match what is in the database, fwd to the next page (home?)
+  User.findOne({})
+
+} 
+
 //middleware to get all users
 userController.getAllUsers = (req, res, next) => {
   return next();

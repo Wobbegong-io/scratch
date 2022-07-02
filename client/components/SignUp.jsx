@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function SignUp() {
  
@@ -15,8 +16,24 @@ export default function SignUp() {
   const handleSubmit = () => {
     //send user info to the backend
     console.log(user);
-    window.location = '/#/Home';
+    
+      axios
+        .post('/users/signup', { user })
+        .then((response) => {
+          // if we get a response 201 from the backend, then we redirect to the landing page
+          if (response.status === 201) {
+           window.location = '/#/Landing';
+
+          } else {
+
+          }
+          // else please check your username and password. Both fields are required
+
+          console.log(response)
+        });
+
   }
+  //stretch feature: update input fields to accept a full address format. 
 
   return (
       <>
@@ -25,7 +42,7 @@ export default function SignUp() {
         <br/>
         <input name="username" value={user.username} onChange={handleChange} />
         <input type="password" name="password" value={user.password} onChange={handleChange} />
-        <input name="location" value={user.location} onChange={handleChange} />
+        <input name="location" value={user.address} onChange={handleChange} />
         <button id="signIn" type='submit' onClick={() => handleSubmit()}>Sign Up</button>
         <br/>
         <br/>
