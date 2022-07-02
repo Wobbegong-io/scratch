@@ -9,13 +9,13 @@ export default function Home() {
 
   const [picked, setPicked] = useState(false);
 
+  const [userPick, setUserPick] = useState({});
+
   const handleChange = (e) => {
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  let pickedName = '';
-  let pickedImage = '';
 
   const handleClick = (input) => {
     console.log('input', input.term, 'location', input.location);
@@ -23,11 +23,11 @@ export default function Home() {
       .post('/api/yelp', { term: input.term, location: input.location })
       .then((response) => {
         let index = Math.floor(Math.random() * response.data.length);
-        pickedName = response.data[index].name;
-        pickedImage = response.data[index].image_url;
+        let pickedName = response.data[index].name;
+        let pickedImage = response.data[index].image_url;
+        setUserPick({userPick, name: pickedName, image: pickedImage})
         console.log(response.data[index].name);
-      });
-    setPicked(true);
+      }).then(setPicked(true));
   };
 
   if (!picked) {
@@ -62,8 +62,8 @@ export default function Home() {
   if (picked) {
     return (
       <div>
-        <h2>Your pick is: {pickedName}</h2>
-        <img src={`${pickedImage}`} alt="food" />
+        <h2>Your pick is: {userPick.name}</h2>
+        <img src={`${userPick.image}`} alt="food" />
       </div>
     );
   }
