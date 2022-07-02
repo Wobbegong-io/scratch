@@ -28,8 +28,9 @@ restaurantController.getRestaurants = (req, res, next) => {
         Authorization: process.env.YELP_API,
       },
       params: {
-        name: term,
+        term: term,
         location,
+        categories: 'restaurant',
         radius: 1500,
         limit: 50,
       },
