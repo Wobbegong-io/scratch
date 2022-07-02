@@ -3,10 +3,11 @@ const restaurantRouter = express.Router();
 const restaurantController = require('../controllers/restaurantController.js');
 
 //middleware for fetching a restaurant based on the selected parameters
-restaurantRouter.get(
+restaurantRouter.post(
   '/yelp',
-  restaurantController.getRandomRestaurant,
+  restaurantController.getRestaurants,
   (req, res) => {
+
     return res.status(200).json(res.locals.randomRest);
   }
 );
