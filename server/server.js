@@ -40,15 +40,15 @@ app.use('/users', userRouter)
 //pass the found restaurant back to the front end to render
 app.use('/api', restaurantRouter);
 
-app.get('/yelp', (req, res) => {
-  //const {restaurant} = req.params;
-  axios
-    .request('https://api.yelp.com/v3/businesses/search', config)
-    .then((response) => {
-      return res.status(201).send(response.data.businesses);
-      //return res.status(201).send(response)
-    });
-});
+// app.get('/yelp', (req, res) => {
+//   //const {restaurant} = req.params;
+//   axios
+//     .request('https://api.yelp.com/v3/businesses/search', config)
+//     .then((response) => {
+//       return res.status(201).send(response.data.businesses);
+//       //return res.status(201).send(response)
+//     });
+// });
 
 //serves index.html to the browser, which will then render the app
 app.get('/', (req, res) => {
