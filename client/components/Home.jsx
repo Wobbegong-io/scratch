@@ -1,4 +1,3 @@
-//this component will be the parent component for passing state
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
@@ -9,25 +8,28 @@ export default function Home() {
 
   const [picked, setPicked] = useState(false);
 
-  const handleChange = (e) => {
+  const [userPick, setUserPick] = useState({});
+
+  //possible fix with state
+
+  const handleChange = e => {
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  let pickedName = '';
-  let pickedImage = '';
-
   const handleClick = (input) => {
     console.log('input', input.term, 'location', input.location);
-    axios
-      .post('/api/yelp', { term: input.term, location: input.location })
-      .then((response) => {
-        let index = Math.floor(Math.random() * response.data.length);
-        pickedName = response.data[index].name;
-        pickedImage = response.data[index].image_url;
+    axios.post('/api/yelp', { term: input.term, location: input.location })
+      .then(response => {
+        console.log('response', response);
+        let index = Math.floor(Math.random() * (response.data.length));
+        let pickedName = response.data[index].name;
+        let pickedImage = response.data[index].image_url;
+        console.log('pickedName', pickedName, 'pickedImage', pickedImage)
+        console.log('userPick', userPick);
+        setUserPick({...userPick,  name: pickedName, imageURL: pickedImage });
         console.log(response.data[index].name);
-      });
-    setPicked(true);
+      }).then(setPicked(true));
   };
 
   if (!picked) {
@@ -62,8 +64,8 @@ export default function Home() {
   if (picked) {
     return (
       <div>
-        <h2>Your pick is: {pickedName}</h2>
-        <img src={`${pickedImage}`} alt="food" />
+        <h2>Your pick is: {userPick.name}</h2>
+        <img src={`${userPick.imageURL}`} alt="food" />
       </div>
     );
   }
