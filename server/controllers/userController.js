@@ -6,7 +6,8 @@ const userController = {};
  * createUser - create and save a new User into the database.
  */
 userController.createUser = (req, res, next) => {
-  const { username, password, address } = req.body;
+  console.log(req.body.user)
+  const { username, password, address } = req.body.user;
   User.create({
     username,
     password,

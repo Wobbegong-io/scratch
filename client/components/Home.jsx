@@ -21,7 +21,7 @@ export default function Home() {
     console.log('input', input.term, 'location', input.location);
     axios.post('/api/yelp', { term: input.term, location: input.location })
       .then(response => {
-        console.log('response', response);
+      //  console.log('response', response);
         let index = Math.floor(Math.random() * (response.data.length));
         let pickedName = response.data[index].name;
         let pickedImage = response.data[index].image_url;
