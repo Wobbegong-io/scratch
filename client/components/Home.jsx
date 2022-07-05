@@ -1,9 +1,21 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import IntroImage from '../../images/intro.jpg';
+import { useNavigate } from "react-router-dom";
 
-export default function Home() {
+export default function Home({ signedIn }) {
+
+  const navigate = useNavigate();
+
+  // Added useeffect to conditionally render component if signedIn was passed in as true
+  useEffect(() => {
+    if (!signedIn) {
+      //console.log("not signed in:", signedIn)
+      navigate("/SignUp");
+    }
+  }, [signedIn, navigate]);
+
   const [input, setInput] = useState({ term: '', location: '' });
 
   const [picked, setPicked] = useState(false);
@@ -21,13 +33,13 @@ export default function Home() {
     console.log('input', input.term, 'location', input.location);
     axios.post('/api/yelp', { term: input.term, location: input.location })
       .then(response => {
-      //  console.log('response', response);
+        //  console.log('response', response);
         let index = Math.floor(Math.random() * (response.data.length));
         let pickedName = response.data[index].name;
         let pickedImage = response.data[index].image_url;
         console.log('pickedName', pickedName, 'pickedImage', pickedImage)
         console.log('userPick', userPick);
-        setUserPick({...userPick,  name: pickedName, imageURL: pickedImage });
+        setUserPick({ ...userPick, name: pickedName, imageURL: pickedImage });
         console.log(response.data[index].name);
       }).then(setPicked(true));
   };

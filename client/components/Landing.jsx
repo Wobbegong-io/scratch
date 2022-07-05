@@ -6,17 +6,20 @@ import NavBar2 from './NavBar2';
 import Intro from './Intro';
 import Home from './Home';
 
-export default function Landing() {
-//logic to determine whether user is signed in or not
 
-  const [signedIn, setSignedIn] = useState(false);
+
+export default function Landing({ signedIn,setSignedIn }) {
+  //logic to determine whether user is signed in or not
+
+
+  // Moved state to parent
+  // const [signedIn, setSignedIn] = useState(false);
 
   if (!signedIn) {
     return (
       <div>
-
-         <NavBar1 />
-         <Intro />
+        <NavBar1 />
+        <Intro />
       </div>
     )
   }
@@ -24,7 +27,7 @@ export default function Landing() {
     return (
       <div>
 
-        <NavBar2 signedIn={signedIn} setSignedIn={setSignedIn}/>
+        <NavBar2 signedIn={signedIn} setSignedIn={setSignedIn} />
         <Home />
       </div>
     )

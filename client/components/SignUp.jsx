@@ -1,11 +1,11 @@
-//this component will be the parent component for passing state
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function SignUp() {
-
+export default function SignUp({ setSignedIn }) {
+  const navigate = useNavigate();
   const [user, setUser] = useState({ username: '', password: '', address: '' });
 
   const handleChange = e => {
@@ -17,22 +17,29 @@ export default function SignUp() {
     //send user info to the backend
     ;
 
-      const config = {
-        headers: {
-          "Content-type":"application/json"
-        }
+    const config = {
+      headers: {
+        "Content-type": "application/json"
       }
+    }
 
-    axios.post("/users/signup", { user },config)
+    axios.post("/users/signup", { user }, config)
       .then(response => {
         console.log(response)
         if (response.status === 201) {
-         // window.location = '/#/Landing'
+          //console.log("successful sign up");
+          setSignedIn(true);
+
+          /**
+           * in order for the state setting above to work, react router's navigate was used,
+           *  instead of //window.location = '/#/Home'
+           */
+          navigate("/Home");
         } else {
 
         }
       })
-  //  window.location = '/#/Home';
+    //  window.location = '/#/Home';
 
   }
 
