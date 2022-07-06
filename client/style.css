@@ -101,3 +101,7 @@ a:visited {
   gap: 1rem;
   background-color: #4b643c;
 }
+
+input {
+  border: 1px solid green;
+}
