@@ -1,6 +1,6 @@
 //this component will be the parent component for passing state
 import React from 'react';
-import bannerImage from '../../images/banner.jpg';
+import bannerImage from '../../../images/banner.jpg';
 
 export default function Banner() {
   return (

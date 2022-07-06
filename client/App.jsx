@@ -5,9 +5,11 @@ import SignUp from './components/SignUp';
 import Home from './components/Home';
 import Saved from './components/Saved';
 import Landing from './components/Landing';
-import Banner from './components/Banner';
+import Banner from './components/Header/Banner';
+import Welcome from "./components/Header/Welcome";
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import './style.css';
+import './app.css';
 
 /**
  *
@@ -17,28 +19,29 @@ import './style.css';
 export default function App() {
 
   const [signedIn, setSignedIn] = useState(false);
+  const [loggedInUsername, setLoggedInUsername] = useState("")
 
   return (
-    <HashRouter>
-      <Banner />
-      {/*
+    <div id="app">
+      <HashRouter>
+        <Banner />
+        <Welcome username={loggedInUsername} />
 
-      //Quick initial way to simulate logging in
+        <Routes>
+          <Route
+            path="/"
+            element={<Landing signedIn={signedIn} setSignedIn={setSignedIn} />}
+          />
+          <Route path="/LogIn" element={<LogIn setSignedIn={setSignedIn} />} />
+          <Route
+            path="/SignUp"
+            element={<SignUp setSignedIn={setSignedIn} />}
+          />
 
-      <button onClick={() => setSignedIn(!signedIn)}>
-        {signedIn ? "log out" : "login"}
-      </button> */}
-      <Routes>
-
-        <Route path="/" element={<Landing signedIn={signedIn} setSignedIn={setSignedIn} />} />
-        <Route path="/LogIn" element={<LogIn setSignedIn={setSignedIn} />} />
-        <Route path="/SignUp" element={<SignUp setSignedIn={setSignedIn} />} />
-
-        <Route path="/Home" element={<Home signedIn={signedIn} />} />
-        <Route path="/Saved" element={<Saved />} />
-
-      </Routes>
-    </HashRouter>
-
-  )
+          <Route path="/Home" element={<Home signedIn={signedIn} />} />
+          <Route path="/Saved" element={<Saved />} />
+        </Routes>
+      </HashRouter>
+    </div>
+  );
 }

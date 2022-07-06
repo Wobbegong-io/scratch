@@ -15,8 +15,9 @@ userController.createUser = (req, res, next) => {
     address,
   })
     .then((data) => {
-      console.log("data: ", data.id)
+      // console.log("data: ", data.id)
       res.locals.user = data;
+      res.locals.username = data.username;
       return next();
     })
     .catch((err) => {
@@ -52,6 +53,7 @@ userController.verifyUser = (req, res, next) => {
 
         } else {
           res.locals.user = user
+          res.locals.username = user.username
           return next();
         }
       })

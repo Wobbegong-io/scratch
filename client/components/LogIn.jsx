@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function LogIn({ setSignedIn }) {
+export default function LogIn({ setSignedIn, setLoggedInUsername }) {
 
   const navigate = useNavigate();
   const [user, setUser] = useState({ username: '', password: '' });
@@ -30,6 +30,7 @@ export default function LogIn({ setSignedIn }) {
           console.log("successful logging in");
           console.log(response.status)
           setSignedIn(true); 
+          setLoggedInUsername(response.user)
           /**
           * in order for the state setting above to work, react router's navigate was used,
           *  instead of //window.location = '/#/Home'

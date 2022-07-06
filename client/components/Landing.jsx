@@ -1,7 +1,7 @@
 //this component will be the parent component for passing state
 import React from 'react';
 import { useState } from 'react';
-import NavBar1 from './NavBar1';
+import NavBar1 from './Header/NavBar1';
 import NavBar2 from './NavBar2';
 import Intro from './Intro';
 import Home from './Home';
