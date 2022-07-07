@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import IntroImage from '../../images/intro.jpg';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import Map from './Map.jsx';
+import IntroImage from '../../images/intro.jpg';
 
 export default function Home({ signedIn }) {
 
@@ -46,8 +47,9 @@ export default function Home({ signedIn }) {
 
   if (!picked) {
     return (
+      <>
       <div className="home">
-        <img src={IntroImage} alt="food" />
+        {/* <img src={IntroImage} alt="food" /> */}
 
         <p>What are you in the mood for?</p>
 
@@ -71,14 +73,19 @@ export default function Home({ signedIn }) {
         <br />
         <button onClick={() => handleClick(input)}>Pick for Me</button>
       </div>
+      <Map/>
+      </>
     );
   }
   if (picked) {
     return (
-      <div>
-        <h2>Your pick is: {userPick.name}</h2>
-        <img src={`${userPick.imageURL}`} alt="food" />
-      </div>
+      <>
+      <Map />
+        <div>
+          <h2>Your pick is: {userPick.name}</h2>
+          <img src={`${userPick.imageURL}`} alt="food" />
+        </div>
+      </>
     );
   }
 }
