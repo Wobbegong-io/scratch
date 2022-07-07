@@ -1,12 +1,14 @@
 //this component is the container for our app (important for styling)
 import React, { useState } from "react";
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import LogIn from './components/LogIn';
 import SignUp from './components/SignUp';
 import Home from './components/Home';
 import Saved from './components/Saved';
 import Landing from './components/Landing';
 import Banner from './components/Banner';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import NavBar1 from "./components/NavBar1";
+import NavBar2 from "./components/NavBar2";
 import './style.css';
 
 /**
@@ -16,29 +18,37 @@ import './style.css';
  */
 export default function App() {
 
-  const [signedIn, setSignedIn] = useState(false);
+  //signedIn is the state object name, loggedIn is the boolean keeping track of whether we're logged in or not. 
+  const [signedIn, setSignedIn] = useState({id: '', loggedIn: false});
 
-  return (
-    <HashRouter>
-      <Banner />
-      {/*
+  const routes = <Routes>
 
-      //Quick initial way to simulate logging in
+    <Route path="/" element={<Landing signedIn={signedIn} setSignedIn={setSignedIn} />} />
+    <Route path="/LogIn" element={<LogIn signedIn={signedIn} setSignedIn={setSignedIn} />} />
+    <Route path="/SignUp" element={<SignUp setSignedIn={setSignedIn} />} />
+    <Route path="/Home" element={<Home signedIn={signedIn} />} />
+    <Route path="/Landing" element={<Landing />} />
+    <Route path="/Saved" element={<Saved />} />
 
-      <button onClick={() => setSignedIn(!signedIn)}>
-        {signedIn ? "log out" : "login"}
-      </button> */}
-      <Routes>
+  </Routes>
 
-        <Route path="/" element={<Landing signedIn={signedIn} setSignedIn={setSignedIn} />} />
-        <Route path="/LogIn" element={<LogIn setSignedIn={setSignedIn} />} />
-        <Route path="/SignUp" element={<SignUp setSignedIn={setSignedIn} />} />
+  if (signedIn.loggedIn) {
+    return (
 
-        <Route path="/Home" element={<Home signedIn={signedIn} />} />
-        <Route path="/Saved" element={<Saved />} />
-
-      </Routes>
-    </HashRouter>
-
-  )
+      <HashRouter>
+        <Banner />
+        <NavBar2 signedIn={signedIn} setSignedIn={setSignedIn} />
+        {routes}
+      </HashRouter>
+    )
+  }
+  else {
+    return (
+      <HashRouter>
+        <Banner />
+        <NavBar1 />
+        {routes}
+      </HashRouter>
+    )
+  }
 }
