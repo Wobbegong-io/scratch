@@ -6,6 +6,7 @@ const restaurantController = require('../controllers/restaurantController.js');
 restaurantRouter.post(
   '/yelp',
   restaurantController.getRestaurants,
+  //restaurantController.getRestMapLocation,
   (req, res) => {
 
     return res.status(200).json(res.locals.randomRest);

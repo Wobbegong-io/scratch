@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import IntroImage from '../../images/intro.jpg';
 import { useNavigate } from "react-router-dom";
+import Map from './Map.jsx';
 
 export default function Home({ signedIn }) {
 
@@ -46,6 +47,7 @@ export default function Home({ signedIn }) {
 
   if (!picked) {
     return (
+      <>
       <div className="home">
         <img src={IntroImage} alt="food" />
 
@@ -71,14 +73,19 @@ export default function Home({ signedIn }) {
         <br />
         <button onClick={() => handleClick(input)}>Pick for Me</button>
       </div>
+      <Map />
+      </>
     );
   }
   if (picked) {
     return (
+      <>
       <div>
         <h2>Your pick is: {userPick.name}</h2>
         <img src={`${userPick.imageURL}`} alt="food" />
       </div>
+      <Map />
+      </>
     );
   }
 }
