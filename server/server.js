@@ -5,6 +5,9 @@ require('dotenv').config();
 const userRouter = require('./routes/userRouter.js');
 const restaurantRouter = require('./routes/restaurantRouter.js');
 const connectDB = require('../db/connect');
+const sessionController = require('./controllers/sessionController.js');
+const cookieController = require('./controllers/cookieController.js')
+const { send } = require('process');
 const Port = 3000;
 
 app.use(express.json());
@@ -27,6 +30,11 @@ app.use('/api', restaurantRouter);
 //serves index.html to the browser, which will then render the app
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
+});
+
+app.post('/logout', cookieController.deleteSSIDCookie, sessionController.deleteSession, (req, res) => {
+  console.log('clearCookie');
+  return res.status(200);
 });
 
 const start = async () => {

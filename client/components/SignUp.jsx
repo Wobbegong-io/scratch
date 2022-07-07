@@ -36,7 +36,8 @@ export default function SignUp({ setSignedIn }) {
            */
           navigate("/Home");
         } else {
-
+          console.log("failed");
+          alert('Please fill all required fields');
         }
       })
     //  window.location = '/#/Home';
@@ -48,9 +49,15 @@ export default function SignUp({ setSignedIn }) {
       <br />
       <h4>Please Sign Up:</h4>
       <br />
+      <label htmlFor='username'>Username:</label>
       <input name="username" value={user.username} onChange={handleChange} />
+      <br/>
+      <label htmlFor='password'>Password:</label>
       <input type="password" name="password" value={user.password} onChange={handleChange} />
+      <br />
+      <label htmlFor='address'>Address:</label>
       <input name="address" value={user.address} onChange={handleChange} />
+      <br />
       <button id="signIn" type='submit' onClick={() => handleSubmit()}>Sign Up</button>
       <br />
       <br />

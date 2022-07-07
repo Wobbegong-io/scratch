@@ -6,4 +6,11 @@ cookieController.setSSIDCookie = (req, res, next) => {
   return next();
 }
 
+cookieController.deleteSSIDCookie = (req, res, next) => {
+  console.log("delete SSID controller runs")
+  res.clearCookie('ssid');
+  res.end();
+  return next();
+}
+
 module.exports = cookieController;

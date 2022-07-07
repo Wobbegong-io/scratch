@@ -8,7 +8,7 @@ sessionController.startSession = (req, res, next) => {
     console.log("session", session)
     console.log("error", err)
     if (err) return next('Error in session Controller.startSession: ' + JSON.stringify(err));
-    else return next()
+    else return next();
   })
 }
 //add middleware to start a user session
@@ -17,6 +17,13 @@ sessionController.startSession = (req, res, next) => {
 
 //if user not logged in, redirect to login page
 
+sessionController.deleteSession = (req, res, next) => {
+  console.log("deleteSession", req.body.id);
+  Session.deleteOne({ cookieId: req.body.id}, (err, session) => {
+    if (err) return next('Error in session Controller.deleteSession: ' + JSON.stringify(err));
+    else return next();
+  })
+}
 
 
 //add middleware to end session via logout
