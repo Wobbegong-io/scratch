@@ -48,8 +48,12 @@ export default function LogIn({ signedIn, setSignedIn }) {
       <br />
       <h4>Log in below:</h4>
       <br />
+      <label htmlFor='username'>Username:</label>
       <input name="username" value={user.username} onChange={handleChange} />
+      <br/>
+      <label htmlFor='password'>Password:</label>
       <input type="password" name="password" value={user.password} onChange={handleChange} />
+      <br/>
 
       <button id="signIn" type='submit' onClick={() => handleSubmit()}>Login</button>
       <br />
