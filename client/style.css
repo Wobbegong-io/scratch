@@ -131,3 +131,16 @@ input {
   margin: 0 auto;
   padding: 30px;
 }
+
+#returnedRestaurant {
+  display: flex;
+}
+
+#displayedRestaurantResponse {
+  max-width: 50%;
+}
+
+#restaurantImage {
+  margin: 0 auto;
+  width: auto;
+}

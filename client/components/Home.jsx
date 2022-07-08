@@ -35,13 +35,13 @@ export default function Home({ signedIn }) {
     axios.post('/api/yelp', { term: input.term, location: input.location })
       .then(response => {
         //  console.log('response', response);
-        let index = Math.floor(Math.random() * (response.data.length));
-        let pickedName = response.data[index].name;
-        let pickedImage = response.data[index].image_url;
+        // let index = Math.floor(Math.random() * (response.data.length));
+        let pickedName = response.data.name;
+        let pickedImage = response.data.image_url;
         console.log('pickedName', pickedName, 'pickedImage', pickedImage)
         console.log('userPick', userPick);
         setUserPick({ ...userPick, name: pickedName, imageURL: pickedImage });
-        console.log(response.data[index].name);
+        console.log(response.data.name);
       }).then(setPicked(true));
   };
 
@@ -80,10 +80,14 @@ export default function Home({ signedIn }) {
   if (picked) {
     return (
       <>
-      <Map />
-        <div>
-          <h2>Your pick is: {userPick.name}</h2>
-          <img src={`${userPick.imageURL}`} alt="food" />
+        <div id="returnedRestaurant">
+          <div id='displayedRestaurantResponse'>
+            <h2>Your pick is: {userPick.name}</h2>
+            <img id='restaurantImage' src={`${userPick.imageURL}`} alt="food" />
+          </div>
+          <div>
+            <Map />
+          </div>
         </div>
       </>
     );
