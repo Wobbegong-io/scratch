@@ -1,19 +1,18 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Map from './Map.jsx';
 import IntroImage from '../../images/intro.jpg';
 
 export default function Home({ signedIn }) {
-
   const navigate = useNavigate();
 
   // Added useeffect to conditionally render component if signedIn was passed in as true
   useEffect(() => {
     if (!signedIn) {
       //console.log("not signed in:", signedIn)
-      navigate("/SignUp");
+      navigate('/SignUp');
     }
   }, [signedIn, navigate]);
 
@@ -23,57 +22,65 @@ export default function Home({ signedIn }) {
 
   const [userPick, setUserPick] = useState({});
 
+  const [restaurantLocation, setRestaurantLocation] = useState({longitude: '', latitude: ''})
+
   //possible fix with state
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     e.preventDefault();
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const handleClick = (input) => {
     console.log('input', input.term, 'location', input.location);
-    axios.post('/api/yelp', { term: input.term, location: input.location })
-      .then(response => {
+    axios
+      .post('/api/yelp', { term: input.term, location: input.location })
+      .then((response) => {
         //  console.log('response', response);
         // let index = Math.floor(Math.random() * (response.data.length));
         let pickedName = response.data.name;
         let pickedImage = response.data.image_url;
-        console.log('pickedName', pickedName, 'pickedImage', pickedImage)
+        let longitude = response.data.coordinates.longitude;
+        let latitude = response.data.coordinates.latitude;
+        setRestaurantLocation({...restaurantLocation, longitude: longitude, latitude: latitude})
+        console.log('pickedName', pickedName, 'pickedImage', pickedImage);
         console.log('userPick', userPick);
+        console.log('restaurantLocation', restaurantLocation);
         setUserPick({ ...userPick, name: pickedName, imageURL: pickedImage });
         console.log(response.data.name);
-      }).then(setPicked(true));
+      })
+      .then(setPicked(true));
   };
 
   if (!picked) {
     return (
       <>
-      <div className="home">
-        {/* <img src={IntroImage} alt="food" /> */}
+        <div className="home">
+          {/* <img src={IntroImage} alt="food" /> */}
 
-        <p>What are you in the mood for?</p>
+          <p>What are you in the mood for?</p>
 
-        <input
-          className="input"
-          name="term"
-          value={input.term}
-          onChange={handleChange}
-        />
-        <br />
-        <label className="input" htmlFor="location">
-          Location:
-        </label>
-        <br />
-        <input
-          className="input"
-          name="location"
-          value={input.location}
-          onChange={handleChange}
-        />
-        <br />
-        <button onClick={() => handleClick(input)}>Pick for Me</button>
-      </div>
-      <Map/>
+          <input
+            className="input"
+            name="term"
+            value={input.term}
+            onChange={handleChange}
+          />
+          <br />
+          <label className="input" htmlFor="location">
+            Location:
+          </label>
+          <br />
+          <input
+            className="input"
+            name="location"
+            value={input.location}
+            onChange={handleChange}
+          />
+          <br />
+          <button onClick={() => handleClick(input)}>Pick for Me</button>
+        </div>
+        {/* <Map /> */}
       </>
     );
   }
@@ -81,12 +88,12 @@ export default function Home({ signedIn }) {
     return (
       <>
         <div id="returnedRestaurant">
-          <div id='displayedRestaurantResponse'>
+          <div id="displayedRestaurantResponse">
             <h2>Your pick is: {userPick.name}</h2>
-            <img id='restaurantImage' src={`${userPick.imageURL}`} alt="food" />
+            <img id="restaurantImage" src={`${userPick.imageURL}`} alt="food" />
           </div>
-          <div>
-            <Map />
+          <div id="restaurantMap">
+            <Map longitude={restaurantLocation.longitude} latitude={restaurantLocation.latitude} />
           </div>
         </div>
       </>
