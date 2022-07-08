@@ -9,6 +9,7 @@ import Landing from './components/Landing';
 import Banner from './components/Banner';
 import NavBar1 from './components/NavBar1';
 import NavBar2 from './components/NavBar2';
+import Welcome from './components/Welcome'
 
 import './style.css';
 
@@ -43,6 +44,7 @@ export default function App() {
       <HashRouter>
         <Banner />
         <NavBar2 signedIn={signedIn} setSignedIn={setSignedIn} />
+        <Welcome />
         {routes}
       </HashRouter>
     );
@@ -51,6 +53,7 @@ export default function App() {
       <HashRouter>
         <Banner />
         <NavBar1 />
+        <Welcome />
         {routes}
       </HashRouter>
     );
