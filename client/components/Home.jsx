@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import IntroImage from '../../images/intro.jpg';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import Map from './Map.jsx';
+import IntroImage from '../../images/intro.jpg';
 
 export default function Home({ signedIn }) {
 
@@ -34,20 +35,21 @@ export default function Home({ signedIn }) {
     axios.post('/api/yelp', { term: input.term, location: input.location })
       .then(response => {
         //  console.log('response', response);
-        let index = Math.floor(Math.random() * (response.data.length));
-        let pickedName = response.data[index].name;
-        let pickedImage = response.data[index].image_url;
+        // let index = Math.floor(Math.random() * (response.data.length));
+        let pickedName = response.data.name;
+        let pickedImage = response.data.image_url;
         console.log('pickedName', pickedName, 'pickedImage', pickedImage)
         console.log('userPick', userPick);
         setUserPick({ ...userPick, name: pickedName, imageURL: pickedImage });
-        console.log(response.data[index].name);
+        console.log(response.data.name);
       }).then(setPicked(true));
   };
 
   if (!picked) {
     return (
+      <>
       <div className="home">
-        <img src={IntroImage} alt="food" />
+        {/* <img src={IntroImage} alt="food" /> */}
 
         <p>What are you in the mood for?</p>
 
@@ -71,14 +73,23 @@ export default function Home({ signedIn }) {
         <br />
         <button onClick={() => handleClick(input)}>Pick for Me</button>
       </div>
+      <Map/>
+      </>
     );
   }
   if (picked) {
     return (
-      <div>
-        <h2>Your pick is: {userPick.name}</h2>
-        <img src={`${userPick.imageURL}`} alt="food" />
-      </div>
+      <>
+        <div id="returnedRestaurant">
+          <div id='displayedRestaurantResponse'>
+            <h2>Your pick is: {userPick.name}</h2>
+            <img id='restaurantImage' src={`${userPick.imageURL}`} alt="food" />
+          </div>
+          <div>
+            <Map />
+          </div>
+        </div>
+      </>
     );
   }
 }

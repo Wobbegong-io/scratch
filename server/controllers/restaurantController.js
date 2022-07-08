@@ -16,7 +16,6 @@ const restaurantController = {};
 //   },
 // };
 //generate a random number to pull a restaurant from the returned data. current limit to 5 (not sure how large the dataset is that is returned)
-randomRestNum = Math.floor(Math.random() * 5);
 
 //add middleware to handle restaurant info here:
 restaurantController.getRestaurants = (req, res, next) => {
@@ -28,7 +27,7 @@ restaurantController.getRestaurants = (req, res, next) => {
         Authorization: process.env.YELP_API,
       },
       params: {
-        term: term,
+        term,
         location,
         categories: 'restaurant',
         radius: 1500,
@@ -36,12 +35,24 @@ restaurantController.getRestaurants = (req, res, next) => {
       },
     })
     .then((response) => {
-      res.locals.randomRest = response.data.businesses;
+      const randomRestNum = Math.floor(
+        Math.random() * response.data.businesses.length - 1
+      );
+      res.locals.randomRest = response.data.businesses[randomRestNum];
+      console.log(
+        'random restaurant picked in restaurant controller line 41 --> ',
+        response.data.businesses[randomRestNum]
+      );
     })
     .then(() => {
       return next();
     });
 };
+
+//middleware to get the restaurant's location on Mapbox
+// restaurantController.getRestMapLocation = (req,res,next)=>{
+//   const restaurantLocation = res.locals.randomRes
+// }
 
 //middleware to get random restaurant
 
