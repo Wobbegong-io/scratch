@@ -6,15 +6,19 @@ mapboxgl.accessToken =
   'pk.eyJ1IjoiamVyZW15aGFtaWxsIiwiYSI6ImNsNWFkandpZDIyZDUzZHBva2t0cWhhOWcifQ.k7-wuJwqwUK4zSgv707V5w';
 
 
-export default function App() {
+export default function App({longitude, latitude}) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(-74.006);
+  const [lng, setLng] = useState(-74.0060);
   const [lat, setLat] = useState(40.7128);
-  const [zoom, setZoom] = useState(11);
+  const [zoom, setZoom] = useState(12);
 
+  // setLng(longitude);
+  // setLat(latitude);  
+  
   useEffect(() => {
     if (map.current) return; // initialize map only once
+    console.log('line 19 long', longitude, 'lat', latitude);
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
