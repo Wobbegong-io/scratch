@@ -45,7 +45,7 @@ export default function LogIn({ signedIn, setSignedIn }) {
           name="username"
           value={user.username}
           onChange={handleChange}
-          autocomplete="off"
+          autoComplete="off"
         />
 
         <label htmlFor="password">Password:</label>

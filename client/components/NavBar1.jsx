@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export default function NavBar1() {
   return (
     <nav className='nav'>
-      <Link to="/Landing" className='site-name'>Pick For Me</Link>
+      <Link to="/Landing" className='site-name'>Don't get hangry, get <em>Served</em></Link>
       <ul className='navbar'>
         <li>
           <Link to="/LogIn"><p>Log In</p></Link>
