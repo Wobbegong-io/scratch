@@ -16,13 +16,19 @@ export default function NavBar2({ signedIn, setSignedIn }) {
    * changed /Landing to / since app structure was tweaked
    */
   return (
-    <nav className='nav'>
-      <Link to="/Landing" className='site-name'>Pick For Me</Link>
-      <ul className='navbar'>
+    <nav className="nav">
+      <Link to="/Landing" className="site-name">
+        Don't get hangry, get <em>Served</em>
+      </Link>
+      <ul className="navbar">
         <li>
-          <Link to="/"><button className='navbutton' onClick={handleClick}>Log Out</button></Link>
+          <Link to="/">
+            <button className="navbutton" onClick={handleClick}>
+              Log Out
+            </button>
+          </Link>
         </li>
       </ul>
     </nav>
-  )
+  );
 }

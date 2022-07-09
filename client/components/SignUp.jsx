@@ -41,33 +41,41 @@ export default function SignUp({ setSignedIn }) {
 
   return (
     <>
-      <br />
+      <div id="formHeading">New around here? Create an account below.</div>
       <div id="customForm">
-        <h4>Please Sign Up:</h4>
-        <br />
         <label htmlFor="username">Username:</label>
-        <input name="username" value={user.username} onChange={handleChange} />
-        <br />
+        <input
+          name="username"
+          value={user.username}
+          autoComplete="off"
+          onChange={handleChange}
+        />
+
         <label htmlFor="password">Password:</label>
         <input
           type="password"
           name="password"
+          autoComplete="off"
           value={user.password}
           onChange={handleChange}
         />
-        <br />
+
         <label htmlFor="address">Address:</label>
-        <input name="address" value={user.address} onChange={handleChange} />
-        <br />
+        <input
+          name="address"
+          value={user.address}
+          autoComplete="off"
+          onChange={handleChange}
+        />
+
         <button id="signIn" type="submit" onClick={() => handleSubmit()}>
           Sign Up
         </button>
-        <br />
-        <br />
-        <br />
-        <br />
-        <h4>Already a User?</h4>
-        <Link to="/LogIn">Sign In</Link>
+
+        <div id="formFooter">
+          <h4>Already a User?</h4>
+          <Link to="/LogIn">Sign In</Link>
+        </div>
       </div>
     </>
   );

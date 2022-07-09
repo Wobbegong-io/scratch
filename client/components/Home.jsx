@@ -22,7 +22,10 @@ export default function Home({ signedIn }) {
 
   const [userPick, setUserPick] = useState({});
 
-  const [restaurantLocation, setRestaurantLocation] = useState({longitude: '', latitude: ''})
+  const [restaurantLocation, setRestaurantLocation] = useState({
+    longitude: '',
+    latitude: '',
+  });
 
   //possible fix with state
 
@@ -42,7 +45,11 @@ export default function Home({ signedIn }) {
         let pickedImage = response.data.image_url;
         let longitude = response.data.coordinates.longitude;
         let latitude = response.data.coordinates.latitude;
-        setRestaurantLocation({...restaurantLocation, longitude: longitude, latitude: latitude})
+        setRestaurantLocation({
+          ...restaurantLocation,
+          longitude: longitude,
+          latitude: latitude,
+        });
         console.log('pickedName', pickedName, 'pickedImage', pickedImage);
         console.log('userPick', userPick);
         console.log('restaurantLocation', restaurantLocation);
@@ -58,27 +65,30 @@ export default function Home({ signedIn }) {
         <div className="home">
           {/* <img src={IntroImage} alt="food" /> */}
 
-          <p>What are you in the mood for?</p>
+          <div id="formHeading">What are you in the mood for?</div>
+          <div id="customForm">
+            <input
+              className="input"
+              name="term"
+              value={input.term}
+              autoComplete="off"
+              onChange={handleChange}
+            />
 
-          <input
-            className="input"
-            name="term"
-            value={input.term}
-            onChange={handleChange}
-          />
-          <br />
-          <label className="input" htmlFor="location">
-            Location:
-          </label>
-          <br />
-          <input
-            className="input"
-            name="location"
-            value={input.location}
-            onChange={handleChange}
-          />
-          <br />
-          <button onClick={() => handleClick(input)}>Pick for Me</button>
+            <label className="input" htmlFor="location">
+              Location:
+            </label>
+
+            <input
+              className="input"
+              name="location"
+              value={input.location}
+              autoComplete="off"
+              onChange={handleChange}
+            />
+
+            <button onClick={() => handleClick(input)}>Pick for Me</button>
+          </div>
         </div>
         {/* <Map /> */}
       </>
@@ -89,11 +99,15 @@ export default function Home({ signedIn }) {
       <>
         <div id="returnedRestaurant">
           <div id="displayedRestaurantResponse">
-            <h2>Your pick is: {userPick.name}</h2>
+            <h2>Your pick is:</h2>
+            <h2> {userPick.name}</h2>
             <img id="restaurantImage" src={`${userPick.imageURL}`} alt="food" />
           </div>
           <div id="restaurantMap">
-            <Map longitude={restaurantLocation.longitude} latitude={restaurantLocation.latitude} />
+            <Map
+              longitude={restaurantLocation.longitude}
+              latitude={restaurantLocation.latitude}
+            />
           </div>
         </div>
       </>
